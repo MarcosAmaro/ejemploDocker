@@ -32,7 +32,7 @@ Donde tagName es el nombre que tendrá la imagen y el punto indica el directorio
 - Para correr la imagen: **docker run -it tagName**
   También se puede hacer un mapeo de los puertos con el parámetro -p: ejemplo --> **docker run -it -p 8000:80 tagName**
 
-- Para construir las 3 imágenes del ejemplo SOAP, situarse en el directorio donde se encuentre el archivo *docker-compose.yaml* y en consola ejecutar: **docker-compose build**
+- Para construir las 3 imágenes del ejemplo SOAP, situarse en el directorio donde se encuentre el archivo *docker-compose.yaml*, en este caso está dentro de la carpeta **SOAP** y en consola ejecutar: **docker-compose build**
 
 - Para levantar los servicios construidos: **docker-composer up**
 
