@@ -1,0 +1,24 @@
+# imagen docker a utilizar, en este caso usamos un sistema base alpine limpio
+FROM alpine:3.12
+
+# instalo java 11 y maven 3.6
+RUN apk add openjdk11
+RUN apk add maven=3.6.3-r0
+
+# creo el directorio para alojar los fuentes
+WORKDIR /javaSrc
+
+# copio los fuentes
+COPY soapServer/src /javaSrc/src/main/java
+COPY soapServer/pom.xml /javaSrc/
+
+# construyo el artefacto con maven
+RUN mvn package
+
+# copio el ejecutable a otra carpeta
+RUN mkdir -p /apps/soapServer
+RUN cp target/soapServer-full.jar /apps/soapServer/
+
+# comando para ejecutar el jar creado al iniciar el contenedor
+CMD ["java", "-jar", "/apps/soapServer/soapServer-full.jar"]
+

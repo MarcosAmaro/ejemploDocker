@@ -1,0 +1,25 @@
+# version de docker-compose a utilizar
+version: "3.3"
+
+# acá se definen los servicios(contenedores) que tendrá el sistema
+# los contenedores se pueden comunicar entre sí mediante el nombre de servicio
+services: 
+    frontend:
+        container_name: frontend
+        restart: always
+        build: DockerPythonView
+        ports: 
+            - 8000:5000
+
+    client:
+        container_name: client
+        restart: always
+        build: DockerPHPClient
+        ports:
+            - 80:80
+
+    soapserver:
+        container_name: soapserver
+        restart: always
+        build: DockerJavaServer
+        

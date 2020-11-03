@@ -1,0 +1,19 @@
+# imagen docker a utilizar, en este caso usamos un sistema base alpine limpio
+FROM alpine:3.12
+
+# el gestor de paquetes alpine es apk, instala python y pip
+RUN apk add python3-dev py-pip
+
+# crea un directorio
+WORKDIR /app
+
+# copiamos nuestros archivos hacia la ruta dentro del contenedor
+COPY . /app
+
+# usando pip instalamos las dependencias requeridas para correr la aplicación
+RUN pip install flask==1.1.2
+RUN pip install flask-cors==3.0.9
+
+# cuando corramos la imagen, ejecutará automaticamente la aplicación
+CMD ["python3", "/app/src/server.py"]
+

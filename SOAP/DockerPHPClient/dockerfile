@@ -1,0 +1,24 @@
+# imagen docker a utilizar, en este caso usamos un sistema base alpine limpio
+FROM alpine:3.12
+
+# el gestor de paquetes alpine es apk, instala apache y php
+RUN apk add php7
+RUN apk add apache2
+RUN apk add php7-apache2
+RUN apk add php7-soap
+RUN apk add php7-json
+
+# copio los archivos del cliente soap
+COPY soapClient /var/www/localhost/htdocs/sc/
+
+# sobreescribo el php.ini que contiene soap habilitado
+# COPY config/php.ini /etc/php7/php.ini
+
+# copio el script de inicialización de apache
+COPY config/startApache.sh /etc/apache2/startApache.sh
+
+# configuro localhost como servername en apache
+RUN echo "ServerName localhost" >> /etc/apache2/httpd.conf
+
+# inicio apache al levantar el contenedor ejecutando el script
+CMD ["sh", "/etc/apache2/startApache.sh"]
